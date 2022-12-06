@@ -8,12 +8,18 @@ import './style/index.css'
 
 import { Provider } from 'react-redux'
 // Provider is a wrapper taken from the bindings library of Redux for React
-import store from './redux/store'
+import { store, persistor } from './redux/store'
+
+import { PersistGate } from 'redux-persist/integration/react'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <Provider store={store}>
-    <App />
-    {/* so inside here we have also BookStore, BookDetail, CartIndicator */}
+    {/* PersistGate is a component you want to inject in between your
+    Redux Provider and your main component (App) */}
+    <PersistGate persistor={persistor}>
+      <App />
+      {/* so inside here we have also BookStore, BookDetail, CartIndicator */}
+    </PersistGate>
   </Provider>
 )
